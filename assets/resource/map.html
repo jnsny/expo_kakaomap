@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+    <title>Kakao 지도 시작하기</title>
+    <style>
+        #roadviewControl {position:absolute;top:5px;left:5px;width:42px;height:42px;z-index: 1;cursor: pointer; background: url(https://t1.daumcdn.net/localimg/localimages/07/2018/pc/common/img_search.png) 0 -450px no-repeat; margin-top: 80px;}
+    </style>
+</head>
+<body>
+
+    <div id="mapWrapper">
+        <div id="map" style="width:100vw;height:100vh;"></div>
+        <div id="roadviewControl"><h1>지도뷰</h1></div>
+    </div>
+
+
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=a74f3d22ad166a1a2ba129fa95162066"></script>
+    <script type="module" src="test.js"></script>
+	<script>
+		var container = document.getElementById('map');
+		var options = {
+			center: new kakao.maps.LatLng(33.450701, 126.570667),
+			level: 3
+		};
+        var map = new kakao.maps.Map(container, options);
+
+        // ------------- 마커 생성 시작 -------------
+        // 마커가 표시될 위치
+        var markerPosition = new kakao.maps.LatLng(33.450701, 126.570667);
+
+        // 마커를 생성
+        var marker = new kakao.maps.Marker({
+            position: markerPosition
+        });
+
+        // 마커가 지도 위에 표시되도록 설정
+        marker.setMap(map);
+
+        // 지도 위의 마커를 제거
+        // marker.setMap(null);
+        // ------------- 마커 생성 끝 -------------
+
+        // ------------- 선 생성 시작 -------------
+        // 선을 구성하는 좌표 배열 (이 좌표들을 이어서 선을 표시)
+        var linePath = [
+            new kakao.maps.LatLng(33.452344169439975, 126.56878163224233),
+            new kakao.maps.LatLng(33.452739313807456, 126.5709308145358),
+            new kakao.maps.LatLng(33.45178067090639, 126.5726886938753) 
+        ];
+
+        // 지도에 표시할 선을 생성
+        var polyline = new kakao.maps.Polyline({
+            path: linePath,         // 선을 구성하는 좌표배열
+            strokeWeight: 7,        // 선의 두께
+            strokeColor: '#F267B2', // 선의 색깔
+            strokeOpacity: 1,       // 선의 불투명도 (1에서 0 사이의 값이며 0에 가까울수록 투명)
+            strokeStyle: 'solid'    // 선의 스타일
+        });
+
+        // 지도에 선을 표시
+        polyline.setMap(map);
+        // ------------- 선 생성 끝 -------------
+    </script>
+</body>
+</html>
